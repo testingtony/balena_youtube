@@ -1,0 +1,23 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian:build
+
+WORKDIR /root
+
+RUN install_packages libomxil-bellagio-dev
+COPY include /opt/vc/include
+RUN git clone https://github.com/FFmpeg/FFmpeg.git
+
+WORKDIR /root/FFmpeg
+
+RUN  ./configure --prefix=/usr/local/ffmpeg --enable-gpl --enable-omx --enable-omx-rpi --enable-nonfree
+RUN  make
+RUN make install
+
+
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian:run
+
+RUN install_packages libomxil-bellagio-bin libxcb1 libxcb-shm0
+COPY --from=0 /usr/local/ffmpeg /usr/local
+COPY entry.sh /entry.sh
+RUN chmod +x /entry.sh
+
+ENTRYPOINT /entry.sh
