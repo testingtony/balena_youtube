@@ -39,6 +39,8 @@ You can play with the following Environment variables for the fleet or device,
 * *CAM_OPTIONS* (default `--mode 4`) can be used to change the options passed to [`raspivid`](https://www.raspberrypi.org/documentation/raspbian/applications/camera.md)  Try `-ae 32,0x00,0x8080FF -a 12 --mode 4`
 * *BITRATE* (default 8000000) can change the bitrate that the camera outputs data, I've not notice it being helpful to change from the detault
 * *FPS* (default 25) is the number of frames per second sent from the PI to YouTube, you could reduce it try to reduce the network traffic.
+* *TZ* your a local timezone e.g. Europe/London  - you can use these if you've changed the *CAM_OPTIONS* to show the date and time
+* *LC_ALL* your locale e.g. en_GB
 
 Credits
 -------
